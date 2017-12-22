@@ -30,7 +30,7 @@ WORKDIR /usr/src/app
 COPY . ./
 
 RUN wget --quiet -O opencv.zip https://github.com/opencv/opencv/archive/3.3.1.zip
-RUN unzip opencv.zip
+RUN unzip -q opencv.zip
 
 
 #
@@ -40,7 +40,7 @@ RUN wget --quiet -O get-pip.py https://bootstrap.pypa.io/get-pip.py \
 
 COPY ./requirements.txt /requirements.txt
 
-RUN pip3 install -Ur /requirements.txt
+RUN pip install -Ur /requirements.txt
 
 WORKDIR /usr/src/app/opencv
 
