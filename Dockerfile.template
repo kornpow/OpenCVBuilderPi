@@ -42,21 +42,21 @@ COPY ./requirements.txt /requirements.txt
 
 RUN pip3 install -Ur /requirements.txt
 
-WORKDIR /usr/src/app/opencv
+#WORKDIR /usr/src/app/opencv
 
-RUN mkdir build
+#RUN mkdir build
 
-WORKDIR /usr/src/app/opencv/build
+#WORKDIR /usr/src/app/opencv/build
 
-RUN cmake -D CMAKE_BUILD_TYPE=RELEASE \
-    -D CMAKE_INSTALL_PREFIX=/usr/local \
-    -D INSTALL_PYTHON_EXAMPLES=ON \
-    -D BUILD_EXAMPLES=ON ..
+#UN cmake -D CMAKE_BUILD_TYPE=RELEASE \
+#    -D CMAKE_INSTALL_PREFIX=/usr/local \
+#    -D INSTALL_PYTHON_EXAMPLES=ON \
+#    -D BUILD_EXAMPLES=ON ..
 
-RUN make -j8
+#RUN make -j8
 
-RUN make install
-RUN ldconfig
+#RUN make install
+#RUN ldconfig
 
 
 #RUN tar -xf /usr/src/app/include/node-v8.9.3-linux-armv6l.tar.xz && \
