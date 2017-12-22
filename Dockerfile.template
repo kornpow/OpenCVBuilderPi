@@ -1,0 +1,73 @@
+# base-image for python on any machine using a template variable,
+# see more about dockerfile templates here:http://docs.resin.io/pages/deployment/docker-templates
+#1
+FROM resin/rpi-raspbian:latest
+
+
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# use apt-get if you need to install dependencies,
+# for instance if you need ALSA sound utils, just uncomment the lines below.
+#2
+RUN apt-get update && apt-get install -yq \
+build-essential cmake pkg-config \
+libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev \
+libavcodec-dev libavformat-dev libswscale-dev libv4l-dev \
+libxvidcore-dev libx264-dev \
+libgtk2.0-dev \
+libatlas-base-dev gfortran \
+python2.7-dev python3-dev \
+ && rm -rf /var/lib/apt/lists/*
+
+# Set our working directory
+#3
+WORKDIR /usr/src/app
+
+COPY . ./
+
+RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/3.3.1.zip
+RUN unzip opencv.zip
+
+
+#
+RUN wget -O get-pip.py https://bootstrap.pypa.io/get-pip.py \
+    | python3 /usr/src/app/get-pip.py 
+
+
+COPY ./requirements.txt /requirements.txt
+
+#RUN pip3 install -Ur /requirements.txt
+
+
+#RUN tar -xf /usr/src/app/include/node-v8.9.3-linux-armv6l.tar.xz && \
+#  ln -s /usr/src/app/node-v8.9.3-linux-armv6l/bin/node /bin/node && \
+#  ln -s /usr/src/app/node-v8.9.3-linux-armv6l/bin/npm /bin/npm
+  
+#RUN /bin/npm install -g http-server
+
+#8
+#WORKDIR /usr/src/app/code/quick2wire
+
+#9
+#RUN python3 /usr/src/app/code/quick2wire/setup.py install
+
+#10
+WORKDIR /usr/src/app/
+
+
+# Install resin-wifi-connect
+#11
+#RUN curl https://api.github.com/repos/resin-io/resin-wifi-connect/releases/latest -s \
+#    | grep -hoP 'browser_download_url": "\K.*%%RESIN_ARCH%%\.tar\.gz' \
+#    | xargs -n1 curl -Ls \
+#    | tar -xvz -C /usr/src/app/wifi-setup
+
+
+
+# switch on systemd init system in container
+#12
+ENV INITSYSTEM on
+
+# main.py will run when container starts up on the device
+#13
+CMD ["bash", "start"]
