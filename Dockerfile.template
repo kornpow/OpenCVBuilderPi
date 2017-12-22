@@ -20,7 +20,7 @@ python2.7-dev python3-dev \
  && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -yq \
-wget \
+wget unzip\
  && rm -rf /var/lib/apt/lists/*
 
 # Set our working directory
@@ -29,12 +29,12 @@ WORKDIR /usr/src/app
 
 COPY . ./
 
-RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/3.3.1.zip
+RUN wget --quiet -O opencv.zip https://github.com/opencv/opencv/archive/3.3.1.zip
 RUN unzip opencv.zip
 
 
 #
-RUN wget -O get-pip.py https://bootstrap.pypa.io/get-pip.py \
+RUN wget --quiet -O get-pip.py https://bootstrap.pypa.io/get-pip.py \
     | python3 /usr/src/app/get-pip.py 
 
 
