@@ -34,13 +34,13 @@ RUN unzip -q opencv.zip
 
 
 #
-RUN wget --quiet -O get-pip.py https://bootstrap.pypa.io/get-pip.py \
-    | python3 /usr/src/app/get-pip.py 
+RUN wget --quiet -O get-pip.py https://bootstrap.pypa.io/get-pip.py 
+RUN python3 /usr/src/app/get-pip.py 
 
 
 COPY ./requirements.txt /requirements.txt
 
-RUN pip install -Ur /requirements.txt
+RUN pip3 install -Ur /requirements.txt
 
 WORKDIR /usr/src/app/opencv
 
