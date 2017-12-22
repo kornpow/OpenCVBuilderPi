@@ -29,12 +29,11 @@ WORKDIR /usr/src/app
 
 COPY . ./
 
-RUN wget --quiet -O opencv.zip https://github.com/opencv/opencv/archive/3.3.1.zip
-RUN unzip -q opencv.zip
-
+#RUN wget --quiet -O opencv.zip https://github.com/opencv/opencv/archive/3.3.1.zip
+RUN unzip -q opencv-3.3.1.zip
 
 #
-RUN wget --quiet -O get-pip.py https://bootstrap.pypa.io/get-pip.py 
+#RUN wget --quiet -O get-pip.py https://bootstrap.pypa.io/get-pip.py 
 RUN python3 /usr/src/app/get-pip.py 
 
 
@@ -59,29 +58,11 @@ RUN pip3 install -Ur /requirements.txt
 #RUN ldconfig
 
 
-#RUN tar -xf /usr/src/app/include/node-v8.9.3-linux-armv6l.tar.xz && \
-#  ln -s /usr/src/app/node-v8.9.3-linux-armv6l/bin/node /bin/node && \
-#  ln -s /usr/src/app/node-v8.9.3-linux-armv6l/bin/npm /bin/npm
   
-#RUN /bin/npm install -g http-server
 
-#8
-#WORKDIR /usr/src/app/code/quick2wire
-
-#9
-#RUN python3 /usr/src/app/code/quick2wire/setup.py install
 
 #10
 WORKDIR /usr/src/app/
-
-
-# Install resin-wifi-connect
-#11
-#RUN curl https://api.github.com/repos/resin-io/resin-wifi-connect/releases/latest -s \
-#    | grep -hoP 'browser_download_url": "\K.*%%RESIN_ARCH%%\.tar\.gz' \
-#    | xargs -n1 curl -Ls \
-#    | tar -xvz -C /usr/src/app/wifi-setup
-
 
 
 # switch on systemd init system in container
