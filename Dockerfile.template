@@ -36,8 +36,8 @@ COPY ./requirements.txt /requirements.txt
 
 RUN pip3 install -Ur /requirements.txt
 
-COPY ./opencv-3.3.1.zip /opencv-3.3.1.zip
-RUN unzip -q opencv-3.3.1.zip
+COPY ./opencv-3.3.1.zip /usr/src/app/opencv-3.3.1.zip
+RUN unzip -q /usr/src/app/opencv-3.3.1.zip
 
 WORKDIR /usr/src/app/opencv-3.3.1
 
