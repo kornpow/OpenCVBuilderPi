@@ -1,7 +1,7 @@
 # base-image for python on any machine using a template variable,
 # see more about dockerfile templates here:http://docs.resin.io/pages/deployment/docker-templates
 #1
-FROM resin/raspberry-pi-alpine-python:3.6
+FROM resin/raspberry-pi-python:3.6-slim
 
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
