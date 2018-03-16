@@ -1,7 +1,7 @@
 # base-image for python on any machine using a template variable,
 # see more about dockerfile templates here:http://docs.resin.io/pages/deployment/docker-templates
 #1
-FROM resin/rpi-raspbian:latest
+FROM resin/raspberry-pi-alpine-python:3.6
 
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -28,7 +28,7 @@ wget unzip\
 WORKDIR /usr/src/app
 
 COPY ./get-pip.py /get-pip.py
-RUN python3 /get-pip.py 
+RUN curl https://bootstrap.pypa.io/get-pip.py | python3
 
 
 COPY ./requirements.txt /requirements.txt
