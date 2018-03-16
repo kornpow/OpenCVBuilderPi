@@ -66,6 +66,8 @@ WORKDIR /usr/src/app/
 #12
 ENV INITSYSTEM on
 
+RUN apt-get update && apt-get install nano
+
 # main.py will run when container starts up on the device
 #13
 CMD ["bash", "start"]
