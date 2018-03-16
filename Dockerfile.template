@@ -10,11 +10,11 @@ SHELL ["/bin/bash", "-c"]
 # for instance if you need ALSA sound utils, just uncomment the lines below.
 #2
 RUN apt-get update && apt-get install --no-install-recommends -yq \
-build-essential cmake pkg-config git\
-libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev\
+build-essential cmake pkg-config git \
+libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev \
 libv4l-dev \
 libatlas-base-dev gfortran \
-python3-dev python2.7-dev\
+python3-dev python2.7-dev \
 wget unzip \
  && rm -rf /var/lib/apt/lists/*
 
