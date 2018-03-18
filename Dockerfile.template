@@ -33,7 +33,9 @@ RUN wget https://api.github.com/repos/opencv/opencv/zipball/3.4.1 && mv 3.4.1 3.
 
 WORKDIR /usr/src/app/opencv/opencv-opencv-978d333
 
-RUN mkdir build
+RUN mkdir build && \
+	sed -i -e 's/#define DEFAULT_V4L_WIDTH  640/#define DEFAULT_V4L_WIDTH  1280/g' modules/videoio/src/cap_v4l.cpp && \
+	sed -i -e 's/#define DEFAULT_V4L_HEIGHT 480/#define DEFAULT_V4L_HEIGHT 720/g' modules/videoio/src/cap_v4l.cpp
 
 WORKDIR /usr/src/app/opencv/opencv-opencv-978d333/build
 
