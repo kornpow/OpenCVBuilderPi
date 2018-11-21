@@ -27,7 +27,7 @@ RUN curl https://bootstrap.pypa.io/get-pip.py | python3
 
 COPY ./requirements.txt /requirements.txt
 
-RUN pip3 install -Ur /requirements.txt && rm -rf ~/.cache/pip
+RUN pip3 install -Ur /requirements.txt --only-binary=:all: --python-version 34 --implementation cp --abi cp34m --platform=linux_armv6l --extra-index-url https://www.piwheels.org/simple -v && rm -rf ~/.cache/pip
 
 COPY ./opencv-3.4.4/ /usr/src/app/opencv-3.4.4/
 
