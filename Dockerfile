@@ -15,20 +15,23 @@ libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev \
 libv4l-dev \
 libatlas-base-dev gfortran \
 python3-dev python2.7-dev \
+python3-venv curl \
 wget unzip \
  && rm -rf /var/lib/apt/lists/*
+
+RUN python3 -m venv /env
 
 # Set our working directory
 #3
 WORKDIR /usr/src/app
 
-#RUN curl https://bootstrap.pypa.io/get-pip.py | python3
-
+RUN curl https://bootstrap.pypa.io/get-pip.py | python3
 
 COPY ./requirements.txt /requirements.txt
 
 
-RUN pip3 install -U pip && pip3 install -Ur /requirements.txt --only-binary=:all: --python-version 34 --implementation cp --abi cp34m --platform=linux_armv6l --extra-index-url https://www.piwheels.org/simple -v && rm -rf ~/.cache/pip
+
+RUN bash -c "source /env/bin/activate && pip3 install -Ur /requirements.txt --only-binary=:all: --python-version 34 --implementation cp --abi cp34m --platform=linux_armv6l --extra-index-url https://www.piwheels.org/simple -v --target /env/lib/python3.4/site-packages"
 
 COPY ./opencv-3.4.4/ /usr/src/app/opencv-3.4.4/
 
