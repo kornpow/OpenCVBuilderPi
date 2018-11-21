@@ -22,22 +22,25 @@ wget unzip \
 #3
 WORKDIR /usr/src/app
 
-RUN curl https://bootstrap.pypa.io/get-pip.py | python3
+#RUN curl https://bootstrap.pypa.io/get-pip.py | python3
 
 
 COPY ./requirements.txt /requirements.txt
 
-RUN pip3 install -Ur /requirements.txt --only-binary=:all: --python-version 34 --implementation cp --abi cp34m --platform=linux_armv6l --extra-index-url https://www.piwheels.org/simple -v && rm -rf ~/.cache/pip
+
+RUN pip3 install -U pip && pip3 install -Ur /requirements.txt --only-binary=:all: --python-version 34 --implementation cp --abi cp34m --platform=linux_armv6l --extra-index-url https://www.piwheels.org/simple -v && rm -rf ~/.cache/pip
 
 COPY ./opencv-3.4.4/ /usr/src/app/opencv-3.4.4/
 
-#RUN wget https://api.github.com/repos/opencv/opencv/zipball/3.4.1 && mv 3.4.1 3.4.1.zip && mkdir opencv && unzip 3.4.1.zip -d opencv
+RUN wget https://github.com/opencv/opencv/archive/3.4.4.zip unzip 3.4.4.zip
 
 WORKDIR /usr/src/app/opencv-3.4.4/
 
-#RUN mkdir build && \
-#	sed -i -e 's/#define DEFAULT_V4L_WIDTH  640/#define DEFAULT_V4L_WIDTH  1280/g' modules/videoio/src/cap_v4l.cpp && \
-#	sed -i -e 's/#define DEFAULT_V4L_HEIGHT 480/#define DEFAULT_V4L_HEIGHT 720/g' modules/videoio/src/cap_v4l.cpp
+RUN mkdir build && \
+	sed -i -e 's/#define DEFAULT_V4L_WIDTH  640/#define DEFAULT_V4L_WIDTH  1280/g' modules/videoio/src/cap_v4l.cpp && \
+	sed -i -e 's/#define DEFAULT_V4L_HEIGHT 480/#define DEFAULT_V4L_HEIGHT 720/g' modules/videoio/src/cap_v4l.cpp && \
+	sed -i -e 's/#define DEFAULT_V4L_WIDTH  640/#define DEFAULT_V4L_WIDTH  1280/g' modules/videoio/src/cap_libv4l.cpp && \
+	sed -i -e 's/#define DEFAULT_V4L_HEIGHT 480/#define DEFAULT_V4L_HEIGHT 720/g' modules/videoio/src/cap_libv4l.cpp
 
 
 RUN cmake -D CMAKE_BUILD_TYPE=RELEASE \
@@ -48,7 +51,7 @@ RUN cmake -D CMAKE_BUILD_TYPE=RELEASE \
 	-D PYTHON_LIBRARY=$(python3 -c "from distutils.sysconfig import get_config_var;from os.path import dirname,join ; print(join(dirname(get_config_var('LIBPC')),get_config_var('LDLIBRARY')))") \
 	-D PYTHON3_NUMPY_INCLUDE_DIRS=$(python3 -c "import numpy; print(numpy.get_include())") \
 	-D PYTHON3_PACKAGES_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
-	-D WITH_V4L=ON.. 
+	-D WITH_V4L=ON -D WITH_LIBV4L=ON .. 
 
 
 RUN make -j8
