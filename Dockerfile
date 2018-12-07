@@ -15,17 +15,17 @@ libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev \
 libv4l-dev \
 libatlas-base-dev gfortran \
 python3-dev python2.7-dev \
-python3-venv curl \
+python3-venv curl  \
 wget unzip \
  && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install python3-pip
 
 RUN python3 -m venv /env
 
 # Set our working directory
 #3
 WORKDIR /usr/src/app
-
-RUN source /env/bin/activate && curl https://bootstrap.pypa.io/get-pip.py | python3
 
 COPY ./requirements.txt /requirements.txt
 
