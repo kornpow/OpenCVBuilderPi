@@ -25,7 +25,7 @@ RUN python3 -m venv /env
 #3
 WORKDIR /usr/src/app
 
-RUN curl https://bootstrap.pypa.io/get-pip.py | python3
+RUN source /env/bin/activate && curl https://bootstrap.pypa.io/get-pip.py | python3
 
 COPY ./requirements.txt /requirements.txt
 
@@ -74,4 +74,5 @@ RUN apt-get update && apt-get install nano
 
 # main.py will run when container starts up on the device
 #13
+
 CMD ["bash", "start"]
