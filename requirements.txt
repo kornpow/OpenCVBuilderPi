@@ -1,4 +1,2 @@
-virtualenv
-virtualenvwrapper
 numpy
 pip

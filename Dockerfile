@@ -22,7 +22,7 @@ wget unzip \
 RUN apt-get update && apt-get install python3-pip
 
 
-RUN python3 -m venv --without-pip /env
+#RUN python3 -m venv --without-pip /env
 
 # Set our working directory
 #3
@@ -32,7 +32,7 @@ COPY ./requirements.txt /requirements.txt
 
 
 
-RUN bash -c "source /env/bin/activate && pip3 install -Ur /requirements.txt --only-binary=:all: --python-version 34 --implementation cp --abi cp34m --platform=linux_armv6l --extra-index-url https://www.piwheels.org/simple -v --target /env/lib/python3.4/site-packages"
+RUN bash -c "pip3 install -Ur /requirements.txt --only-binary=:all: --python-version 34 --implementation cp --abi cp34m --platform=linux_armv6l --extra-index-url https://www.piwheels.org/simple -v --target /env/lib/python3.4/site-packages"
 
 
 #COPY ./opencv-3.4.4/ /usr/src/app/opencv-3.4.4/
