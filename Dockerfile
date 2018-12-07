@@ -33,9 +33,10 @@ COPY ./requirements.txt /requirements.txt
 
 RUN bash -c "source /env/bin/activate && pip3 install -Ur /requirements.txt --only-binary=:all: --python-version 34 --implementation cp --abi cp34m --platform=linux_armv6l --extra-index-url https://www.piwheels.org/simple -v --target /env/lib/python3.4/site-packages"
 
-COPY ./opencv-3.4.4/ /usr/src/app/opencv-3.4.4/
 
-RUN wget https://github.com/opencv/opencv/archive/3.4.4.zip unzip 3.4.4.zip
+#COPY ./opencv-3.4.4/ /usr/src/app/opencv-3.4.4/
+
+RUN wget https://github.com/opencv/opencv/archive/3.4.4.zip && unzip 3.4.4.zip
 
 WORKDIR /usr/src/app/opencv-3.4.4/
 
