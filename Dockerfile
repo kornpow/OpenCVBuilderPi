@@ -21,7 +21,8 @@ wget unzip \
 
 RUN apt-get update && apt-get install python3-pip
 
-RUN python3 -m venv /env
+
+RUN python3 -m venv --without-pip /env
 
 # Set our working directory
 #3
