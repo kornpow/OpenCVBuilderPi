@@ -87,13 +87,12 @@ RUN python3 -c "import cv2; print(cv2.__version__)"
 
 # switch on systemd init system in container
 #12
-ENV INITSYSTEM on
+
 
 RUN apt-get update && apt-get install nano
 
 # main.py will run when container starts up on the device
 #13
-
-RUN [ "cross-build-start" ]
-
-CMD ["bash", "start"]
+RUN [ "cross-build-end" ]
+ENV INITSYSTEM on
+#CMD ["bash", "start"]
